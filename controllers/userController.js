@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const validateEmail = require("../helpers/validateEmail");
 const User = require("../models/user");
 const createToken = require("../helpers/createToken");
+const logger = require("../helpers/appLogger");
 
 const userController = {
   register: async (req, res) => {
@@ -46,12 +47,15 @@ const userController = {
         role,
       });
       await newUser.save();
-
+      // Log an event
+      logger.info("Event occurred: User added" + " " + email);
       // registration success
       res
         .status(200)
         .json({ msg: "Registration completed, you can now sign in." });
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -83,6 +87,8 @@ const userController = {
       // signing success
       res.status(200).json({ msg: "Signing success" });
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -101,6 +107,8 @@ const userController = {
         return res.status(200).json({ ac_token });
       });
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -115,6 +123,8 @@ const userController = {
       res.status(202).json({ msg: "Signout success." });
     } catch (error) {
       res.status(500).json({ msg: error.message });
+      // Log an error
+      logger.error(error);
     }
   },
 };

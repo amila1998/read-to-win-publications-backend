@@ -29,7 +29,8 @@ app.get("/", (req, res) => {
 
 const userRoutes = require("./routes/userRoutes")
 app.use("/api/user", userRoutes);
-const bookRoutes = require("./routes/bookRoutes")
+const bookRoutes = require("./routes/bookRoutes");
+const logger = require("./helpers/appLogger");
 app.use("/api/book", bookRoutes);
 
 // Import the background task
@@ -37,5 +38,10 @@ require("./likeCounterTask");
 
 // HTTP request logger
 app.listen(PORT, () => {
-  console.log(`Server is starting at ${PORT}`);
+  logger.info(`Server is starting at ${PORT}`);
+});
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (err) => {
+  logger.error(`Unhandled Promise Rejection: ${err}`);
 });

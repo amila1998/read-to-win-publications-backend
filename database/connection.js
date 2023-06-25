@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require("../helpers/appLogger");
 
 const DB = process.env.MONGODB_URL;
 
@@ -7,7 +8,9 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-  .then(() => console.log("Database Connected"))
+  .then(() => {
+    logger.info("Database Connected");
+  })
   .catch((err) => {
-    console.log(err);
+    logger.error(err);
   });

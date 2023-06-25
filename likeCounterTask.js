@@ -4,6 +4,8 @@ const path = require("path");
 const Book = require("./models/book");
 const User = require("./models/user");
 const Like = require("./models/like");
+const logger = require("./helpers/appLogger");
+const likeCountLogger = require("./helpers/likeCountLogger");
 
 const task = cron.schedule("*/1 * * * *", async () => {
   try {
@@ -36,27 +38,10 @@ const task = cron.schedule("*/1 * * * *", async () => {
 
       // Construct the log message with date, time, author details, and like count
       const logMessage = `Author: ${firstName} ${lastName}, Email: ${email}, No of Publications: ${authorPublishedBooks.length}, Like Count: ${likeCount}\n`;
-
-      const timestamp = new Date()
-        .toISOString()
-        .replace(/[-:]/g, "")
-        .slice(0, -5); // Get current timestamp
-      const logFileName = `log_${timestamp}.log`;
-      const logsFolder = path.join(__dirname, "logs");
-      const logFilePath = path.join(logsFolder, logFileName);
-
-      // Check if the logs folder exists, create it if it doesn't
-      if (!fs.existsSync(logsFolder)) {
-        fs.mkdirSync(logsFolder);
-      }
-
-      // Append the log message to the log file
-      fs.appendFile(logFilePath, logMessage, (err) => {
-        if (err) throw err;
-      });
+      likeCountLogger({ logMessage });
     });
   } catch (error) {
-    console.error("Error in background task:", error);
+    logger.info(error);
   }
 });
 
