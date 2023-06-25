@@ -36,11 +36,33 @@ const bookController = {
   },
   getAllBooks: async (req, res) => {
     try {
-    } catch (error) {}
+      const books = await Book.find().populate({
+        path: "author",
+        select: "-password",
+      });
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
+    }
   },
   getBookByISBN: async (req, res) => {
     try {
-    } catch (error) {}
+      const isbn = req.params.isbn;
+
+      // Find the book in the database by ISBN number
+      const book = await Book.findOne({ isbn }).populate({
+        path: "author",
+        select: "-password",
+      });
+
+      if (!book) {
+        return res.status(404).json({ message: "Book not found" });
+      }
+
+      res.status(200).json(book);
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
+    }
   },
 };
 module.exports = bookController;
