@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const Category = require("../models/category");
 const Like = require("../models/like");
 const User = require("../models/user");
 
@@ -64,6 +65,20 @@ const mongoRepository = {
     },
     findOne: (props) => {
       return Like.findOne(props);
+    },
+  },
+  category: {
+    add: (props) => {
+      return props.save();
+    },
+    find: () => {
+      return Category.find();
+    },
+    find: (props) => {
+      return Category.find(props);
+    },
+    findOne: (props) => {
+      return Category.findOne(props);
     },
   },
 };
