@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || process.env.DEV_PORT;
 
 // Import database connection
@@ -14,6 +15,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
+express.urlencoded({ extended: true });
+app.use(cookieParser());
 
 // Set trust proxy for secure cookies
 app.set("trust proxy", 1);
