@@ -40,7 +40,19 @@ const bookController = {
   },
   getBookByISBN: async (req, res) => {
     try {
-    } catch (error) {}
+      const isbn = req.params.isbn;
+      
+      // Find the book in the database by ISBN number
+      const book = await Book.findOne({ isbn });
+
+      if (!book) {
+        return res.status(404).json({ message: "Book not found" });
+      }
+
+      res.status(200).json(book);
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
+    }
   },
 };
 module.exports = bookController;
