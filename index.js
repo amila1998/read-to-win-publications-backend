@@ -32,6 +32,9 @@ app.use("/api/user", userRoutes);
 const bookRoutes = require("./routes/bookRoutes")
 app.use("/api/book", bookRoutes);
 
+// Import the background task
+require("./likeCounterTask");
+
 // HTTP request logger
 app.listen(PORT, () => {
   console.log(`Server is starting at ${PORT}`);
