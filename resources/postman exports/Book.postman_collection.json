@@ -14,13 +14,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTgyMDhmOWQ2MTQ5ODU1N2ExYjNjMiIsImlhdCI6MTY4NzY5MzA4NywiZXhwIjoxNjg3NjkzOTg3fQ.ExRoZtROa8sU7rBXT-VF6VpkLy4yVA8I_GSmwAZf3Kg",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTg1OTYwNDU1ZjgyZmIwNTQ5ODVlNSIsImlhdCI6MTY4NzcyNjExOCwiZXhwIjoxNjg3NzI3MDE4fQ.kDN88ncNucWIFIX1YPRDrPVR4h5UhEK61J644zrLF4E",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"isbn\":\"book02\",\r\n    \"category\":\"category1\",\r\n    \"title\":\"book title one\"\r\n\r\n}",
+					"raw": "{\r\n    \"isbn\":\"book04\",\r\n    \"category\":\"category1\",\r\n    \"title\":\"book title one\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -28,7 +28,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/book/registerBook",
+					"raw": "http://localhost:5000/api/book/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -37,7 +37,7 @@
 					"path": [
 						"api",
 						"book",
-						"registerBook"
+						""
 					]
 				}
 			},
@@ -68,7 +68,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/book/getBookByISBN/book01",
+					"raw": "http://localhost:5000/api/book/book03",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -77,8 +77,7 @@
 					"path": [
 						"api",
 						"book",
-						"getBookByISBN",
-						"book01"
+						"book03"
 					]
 				}
 			},
@@ -109,7 +108,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/book/getAllBooks",
+					"raw": "http://localhost:5000/api/book/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -118,7 +117,7 @@
 					"path": [
 						"api",
 						"book",
-						"getAllBooks"
+						""
 					]
 				}
 			},

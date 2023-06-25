@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\":\"authorThree\",\r\n    \"lastName\":\"user\",\r\n    \"email\":\"author3user@gmail.com\",\r\n    \"password\":\"123456\",\r\n    \"contactNo\":\"0776659628\",\r\n    \"role\":\"author\"\r\n\r\n\r\n}",
+					"raw": "{\r\n    \"firstName\":\"authorFour\",\r\n    \"lastName\":\"user\",\r\n    \"email\":\"author4user@gmail.com\",\r\n    \"password\":\"123456\",\r\n    \"contactNo\":\"0776659628\",\r\n    \"role\":\"author\"\r\n\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -22,7 +22,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/register",
+					"raw": "http://localhost:5000/api/user/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -31,7 +31,7 @@
 					"path": [
 						"api",
 						"user",
-						"register"
+						""
 					]
 				}
 			},
@@ -52,7 +52,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/user/signing",
+					"raw": "http://localhost:5000/api/user/signin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -61,7 +61,7 @@
 					"path": [
 						"api",
 						"user",
-						"signing"
+						"signin"
 					]
 				}
 			},
