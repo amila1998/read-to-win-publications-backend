@@ -4,7 +4,7 @@ const logger = require("./helpers/appLogger");
 const likeCountLogger = require("./helpers/likeCountLogger");
 const mongoRepository = require("./database/mongoRepository");
 
-const task = cron.schedule("*/1 * * * *", async () => {
+const task = cron.schedule("*/5 * * * *", async () => {
   try {
     const timestamp = new Date()
       .toISOString()
