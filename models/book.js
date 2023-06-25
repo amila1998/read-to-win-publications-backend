@@ -14,7 +14,7 @@ const bookSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    match: /^[a-zA-Z0-9]+$/,
+    match: /^[a-zA-Z0-9\s]+$/,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
