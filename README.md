@@ -42,15 +42,18 @@
       ```sh
         npm run dev
        ```
-or
+    or
 
       ```sh
-        npm run dev
+        npm start
        ```
    
 
      
-  Server Running on http://localhost:<your env dev port> <br/>
+  Server Running on http://localhost:(your env dev port) <br/>
+
+  <p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- CONTACT -->
 ## Contact
 
