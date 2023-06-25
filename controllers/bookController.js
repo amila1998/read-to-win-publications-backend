@@ -1,7 +1,6 @@
 const mongoRepository = require("../database/mongoRepository");
 const Book = require("../models/book");
 const Like = require("../models/like");
-const User = require("../models/user");
 
 const bookController = {
   registerBook: async (req, res) => {
