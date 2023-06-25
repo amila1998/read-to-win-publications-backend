@@ -1,11 +1,8 @@
 const cron = require("node-cron");
-const fs = require("fs");
 const path = require("path");
-const Book = require("./models/book");
-const User = require("./models/user");
-const Like = require("./models/like");
 const logger = require("./helpers/appLogger");
 const likeCountLogger = require("./helpers/likeCountLogger");
+const mongoRepository = require("./database/mongoRepository");
 
 const task = cron.schedule("*/1 * * * *", async () => {
   try {
@@ -18,16 +15,20 @@ const task = cron.schedule("*/1 * * * *", async () => {
     const logFilePath = path.join(logsFolder, logFileName);
 
     // Fetch the like count for each author
-    const authors = await User.find({ role: "author" }).select("-password");
+    const userProps = { role: "author" };
+    const authors = await mongoRepository.user.findWithoutPassword(userProps);
 
     // Generate the report/notification/log entry
     authors.forEach(async (author) => {
-      const { _id, firstName, lastName, email } = author;
-      const authorPublishedBooks = await Book.find({ author });
+      const { firstName, lastName, email } = author;
+      const bookProps = { author };
+      const authorPublishedBooks =
+        await mongoRepository.book.find(bookProps);
       let bookLikedCount = []; // to store the count of likes for each book
       if (authorPublishedBooks.length > 0) {
         for (const book of authorPublishedBooks) {
-          const likes = await Like.find({ book });
+          const likeProps = { book };
+          const likes = await mongoRepository.like.find(likeProps);
           bookLikedCount.push(likes.length);
         }
       }

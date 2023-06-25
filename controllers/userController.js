@@ -4,6 +4,7 @@ const validateEmail = require("../helpers/validateEmail");
 const User = require("../models/user");
 const createToken = require("../helpers/createToken");
 const logger = require("../helpers/appLogger");
+const mongoRepository = require("../database/mongoRepository");
 
 const userController = {
   register: async (req, res) => {
@@ -22,7 +23,8 @@ const userController = {
           .json({ msg: "Please enter a valid email address." });
 
       // check user
-      const user = await User.findOne({ email });
+      const props = { email };
+      const user = await mongoRepository.user.findOne(props);
       if (user)
         return res
           .status(400)
@@ -46,7 +48,7 @@ const userController = {
         contactNo,
         role,
       });
-      await newUser.save();
+      await mongoRepository.user.add(newUser);
       // Log an event
       logger.info("Event occurred: User added" + " " + email);
       // registration success
@@ -64,7 +66,8 @@ const userController = {
       const { email, password } = req.body;
 
       // check email
-      const user = await User.findOne({ email });
+      const props = { email };
+      const user = await mongoRepository.user.findOne(props);
       if (!user)
         return res
           .status(400)
