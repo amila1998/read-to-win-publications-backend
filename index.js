@@ -23,6 +23,9 @@ app.get("/", (req, res) => {
   res.send("Read to win publications backend server");
 });
 
+const userRoutes = require("./routes/userRoutes")
+app.use("/api/user", userRoutes);
+
 // HTTP request logger
 app.listen(PORT, () => {
   console.log(`Server is starting at ${PORT}`);
