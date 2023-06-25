@@ -6,5 +6,6 @@ const author = require("../middlewares/author");
 
 route.post("/registerBook", auth, author, bookController.registerBook);
 route.get("/getBookByISBN/:isbn", bookController.getBookByISBN);
+route.get("/getAllBooks", bookController.getAllBooks);
 
 module.exports = route;
