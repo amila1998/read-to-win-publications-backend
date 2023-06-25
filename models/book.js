@@ -21,10 +21,6 @@ const bookSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
 });
 
 const Book = mongoose.model("Book", bookSchema);

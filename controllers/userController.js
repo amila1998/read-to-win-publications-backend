@@ -112,7 +112,7 @@ const userController = {
       createToken.access({ id: "0000000" });
       createToken.refresh({ id: "0000000" });
       // success
-      return res.status(200).json({ msg: "Signout success." });
+      res.status(202).json({ msg: "Signout success." });
     } catch (error) {
       res.status(500).json({ msg: error.message });
     }

@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const Like = require("../models/like");
 const User = require("../models/user");
 
 const bookController = {
@@ -56,7 +57,7 @@ const bookController = {
       });
 
       if (!book) {
-        return res.status(404).json({ message: "Book not found" });
+        return res.status(400).json({ msg: "Book not found" });
       }
 
       res.status(200).json(book);
@@ -67,7 +68,24 @@ const bookController = {
   likeBook: async (req, res) => {
     try {
       const isbn = req.params.isbn;
+      const book = await Book.findOne({ isbn }).populate("author");
+      if (!book) return res.status(400).json({ msg: "Book not found" });
+
+      const user = await User.findById(req.user.id);
+      if (user._id === book.author._id)
+        return res.status(400).json({ msg: "You can't like your own book" });
+
+      const exitLike = await Like.findOne({ user, book });
+      if (exitLike)
+        return res.status(400).json({ msg: "You have already liked that book" });
       
+      const newLike = new Like({
+        user,
+        book
+      })
+
+      await newLike.save();
+      return res.status(200).json({ msg: "Thanks for your like" });;
     } catch (error) {
       res.status(500).json({ msg: error.message });
     }
