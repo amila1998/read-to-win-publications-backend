@@ -24,6 +24,7 @@ const bookController = {
         title,
         author: user,
       });
+      
 
       // Save the book to the database
       await newBook.save();
@@ -32,6 +33,8 @@ const bookController = {
         msg: "Book registered successfully",
       });
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -43,6 +46,8 @@ const bookController = {
       });
       res.status(200).json(books);
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -62,6 +67,8 @@ const bookController = {
 
       res.status(200).json(book);
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
@@ -87,6 +94,8 @@ const bookController = {
       await newLike.save();
       return res.status(200).json({ msg: "Thanks for your like" });;
     } catch (error) {
+      // Log an error
+      logger.error(error);
       res.status(500).json({ msg: error.message });
     }
   },
