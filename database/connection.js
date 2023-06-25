@@ -7,7 +7,7 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-  .then(() => console.log("DataBase Connected"))
+  .then(() => console.log("Database Connected"))
   .catch((err) => {
     console.log(err);
   });
