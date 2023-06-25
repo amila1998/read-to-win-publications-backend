@@ -28,11 +28,11 @@
     ```sh
      npm install
    ```
-4. Create `.env` file inside the server folder and Enter Following Keys
+4. Create `.env` file inside the root folder and Enter Following Keys
    ```.env
         DEV_PORT=5000
         MONGODB_URL=
-        ADMIN_EMAIL=cba23583@gmail.com
+        ADMIN_EMAIL=
         NODE_ENV=development
         REFRESH_TOKEN=adjaksdiw384hjkajdhkas8adsdb
         ACCESS_TOKEN=uwerweiuojnkoko45oo5ppsef5
