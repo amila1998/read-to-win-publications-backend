@@ -21,14 +21,13 @@ const task = cron.schedule("*/1 * * * *", async () => {
           bookLikedCount.push(likes.length);
         }
       }
-      let likeCount = 0
+      let likeCount = 0;
       if (bookLikedCount.length > 0) {
         likeCount = bookLikedCount.reduce(
           (accumulator, currentValue) => accumulator + currentValue,
           0
         );
       }
-
 
       //send an email notification here or log the information to console/file
       console.log(
