@@ -1,11 +1,12 @@
 const mongoRepository = require("../database/mongoRepository");
+const createCategoryList = require("../helpers/createCategoryList");
 const Book = require("../models/book");
 const Like = require("../models/like");
 
 const bookController = {
   registerBook: async (req, res) => {
     try {
-      const { isbn, category, title } = req.body;
+      const { isbn, categories, title } = req.body;
       const userId = req.user.id;
 
       // get user
@@ -14,13 +15,15 @@ const bookController = {
         return res.status(400).json({ msg: "User not found in the database" });
 
       // check fields
-      if (!isbn || !category || !title)
+      if (!isbn || !categories || !title)
         return res.status(400).json({ msg: "Some fields are missing" });
+
+      const categoryList = createCategoryList(categories);
 
       // Create a new book instance
       const newBook = new Book({
         isbn,
-        category,
+        categories: categoryList,
         title,
         author: user,
       });

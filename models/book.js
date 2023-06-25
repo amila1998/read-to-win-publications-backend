@@ -8,10 +8,13 @@ const bookSchema = new mongoose.Schema(
       unique: true,
       match: /^[a-zA-Z0-9]+$/,
     },
-    category: {
-      type: String,
-      required: true,
-    },
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+      },
+    ],
     title: {
       type: String,
       required: true,
