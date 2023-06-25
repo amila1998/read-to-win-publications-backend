@@ -1,3 +1,4 @@
+const mongoRepository = require("../database/mongoRepository");
 const Book = require("../models/book");
 const Like = require("../models/like");
 const User = require("../models/user");
@@ -9,7 +10,7 @@ const bookController = {
       const userId = req.user.id;
 
       // get user
-      const user = await User.findById(userId).select("-password");
+      const user = await mongoRepository.user.findByIdWithoutPassword(userId);
       if (!user)
         return res.status(400).json({ msg: "User not found in the database" });
 
@@ -24,10 +25,9 @@ const bookController = {
         title,
         author: user,
       });
-      
 
       // Save the book to the database
-      await newBook.save();
+      await mongoRepository.book.add(newBook);
 
       res.status(201).json({
         msg: "Book registered successfully",
@@ -40,10 +40,11 @@ const bookController = {
   },
   getAllBooks: async (req, res) => {
     try {
-      const books = await Book.find().populate({
+      const populates = {
         path: "author",
         select: "-password",
-      });
+      };
+      const books = await mongoRepository.book.findWithPopulates(populates);
       res.status(200).json(books);
     } catch (error) {
       // Log an error
@@ -56,10 +57,15 @@ const bookController = {
       const isbn = req.params.isbn;
 
       // Find the book in the database by ISBN number
-      const book = await Book.findOne({ isbn }).populate({
+      const populate = {
         path: "author",
         select: "-password",
-      });
+      };
+      const props = { isbn };
+      const book = await mongoRepository.book.findOneWithPopulates(
+        props,
+        populate
+      );
 
       if (!book) {
         return res.status(400).json({ msg: "Book not found" });
@@ -75,24 +81,29 @@ const bookController = {
   likeBook: async (req, res) => {
     try {
       const isbn = req.params.isbn;
-      const book = await Book.findOne({ isbn }).populate("author");
+      const populate = "author";
+      const props = { isbn };
+      const book = await mongoRepository.findOneWithPopulates(props, populate);
       if (!book) return res.status(400).json({ msg: "Book not found" });
 
-      const user = await User.findById(req.user.id);
+      const user = await mongoRepository.user.findByIdWithoutPassword(req.user.id);
       if (user._id === book.author._id)
         return res.status(400).json({ msg: "You can't like your own book" });
 
-      const exitLike = await Like.findOne({ user, book });
+      const likeProps = { user, book };
+      const exitLike = await mongoRepository.like.findOne(likeProps);
       if (exitLike)
-        return res.status(400).json({ msg: "You have already liked that book" });
-      
+        return res
+          .status(400)
+          .json({ msg: "You have already liked that book" });
+
       const newLike = new Like({
         user,
-        book
-      })
+        book,
+      });
 
-      await newLike.save();
-      return res.status(200).json({ msg: "Thanks for your like" });;
+      await mongoRepository.like.add(newLike);
+      return res.status(200).json({ msg: "Thanks for your like" });
     } catch (error) {
       // Log an error
       logger.error(error);

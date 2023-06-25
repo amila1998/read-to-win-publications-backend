@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || process.env.DEV_PORT;
 
 // Import database connection
-require("./database/connection");
+require("./database/mongoConnection");
 
 // Middleware
 app.use(

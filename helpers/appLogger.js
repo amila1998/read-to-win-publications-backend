@@ -14,8 +14,8 @@ if (!fs.existsSync(logsFolder)) {
 const logger = winston.createLogger({
   level: "info", // Set the desired log level
   format: winston.format.combine(
-    winston.format.timestamp(), // Add timestamp to the log entries
-    winston.format.simple() // Use the default log format
+    winston.format.timestamp(), // Added timestamp to the log entries
+    winston.format.simple() // Used the default log format
   ),
   transports: [
     // Specify the transports (output) for the logs
