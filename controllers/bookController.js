@@ -64,5 +64,13 @@ const bookController = {
       res.status(500).json({ msg: error.message });
     }
   },
+  likeBook: async (req, res) => {
+    try {
+      const isbn = req.params.isbn;
+      
+    } catch (error) {
+      res.status(500).json({ msg: error.message });
+    }
+  },
 };
 module.exports = bookController;
