@@ -18,7 +18,7 @@ const bookController = {
       if (!isbn || !categories || !title)
         return res.status(400).json({ msg: "Some fields are missing" });
 
-      const categoryList = createCategoryList(categories);
+      const categoryList = await createCategoryList(categories);
 
       // Create a new book instance
       const newBook = new Book({
@@ -27,11 +27,11 @@ const bookController = {
         title,
         author: user,
       });
-
+      
       // Save the book to the database
       await mongoRepository.book.add(newBook);
 
-      res.status(201).json({
+      return res.status(201).json({
         msg: "Book registered successfully",
       });
     } catch (error) {
